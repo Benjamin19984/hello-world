@@ -17,7 +17,8 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->sentence(),
+            // 'name' => $this->faker->text(25),
+            'name' => substr($this->faker->sentence(), 0, 25),
             'description' => $this->faker->realText(),
             'due_date' => $this->faker->dateTimeBetween('now', '+1 year'),
             'status' => $this->faker->randomElement(['pending', 'in progress', 'completed']),

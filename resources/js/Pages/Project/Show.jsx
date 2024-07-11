@@ -4,6 +4,7 @@ import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from '@/constant';
 import { Head } from '@inertiajs/react';
 
 export default function Show({ auth, project, tasks, queryParams = null }) {
+    console.log(tasks)
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -14,14 +15,14 @@ export default function Show({ auth, project, tasks, queryParams = null }) {
                 <div className="mx-auto max-w-8xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                         <div>
-                            <img src="project.image_url"
-                                alt=""
-                                className='w-full h-64 object-cover'
+                            <img src={project.image}
+                                alt={project.image}
+                                className='object-cover w-full '
                             />
                         </div>
-                        <div className="p-6 text-gray-900 dark:text-gray-100 overflow-auto">
+                        <div className="p-6 overflow-auto text-gray-900 dark:text-gray-100">
 
-                            <div className='grid gap-1 grid-cols-2'>
+                            <div className='grid grid-cols-2 gap-1'>
                                 <div>
                                     <div>
                                         <label className='font-bold, text-lg'>
@@ -76,7 +77,7 @@ export default function Show({ auth, project, tasks, queryParams = null }) {
 
                             </div>
                             <div className='mt-4'>
-                                <label className='font-bold text-lg'>
+                                <label className='text-lg font-bold'>
                                     Project Description
                                 </label>
                                 <p>{project.description}</p>
@@ -88,15 +89,15 @@ export default function Show({ auth, project, tasks, queryParams = null }) {
 
                 </div>
             </div>
-            <div className="px-12">
+            { tasks && (<div className="px-12">
                 <div className="mx-auto max-w-8xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
-                        <div className="p-6 text-gray-900 dark:text-gray-100 overflow-auto">
+                        <div className="p-6 overflow-auto text-gray-900 dark:text-gray-100">
                             <TasksTable tasks={tasks} queryParams={queryParams} />
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>)}            
         </AuthenticatedLayout>
     )
 

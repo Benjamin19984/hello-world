@@ -7,7 +7,7 @@ export default function Index({ auth, tasks, queryParams}) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">Profile</h2>}
+            header={<h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">Task</h2>}
         >
             <Head title="Profile" />
             <div className="py-12">

@@ -26,7 +26,6 @@ Route::middleware(['auth', 'verified'])->group(
         Route::resource('project', ProjectController::class);
         Route::resource('task', TaskController::class);
         Route::resource('user', UserController::class);
-
     }
 );
 
