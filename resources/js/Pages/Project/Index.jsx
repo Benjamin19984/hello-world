@@ -113,7 +113,7 @@ export default function Index({ auth, projects, queryParams: initialQueryParams 
                                             <td className='px-3 py-2 text-nowrap'>{project.created_at}</td>
                                             <td className='px-3 py-2 text-nowrap'>{project.due_date}</td>
                                             <td className='px-3 py-2'>{project.createdBy.name}</td>
-                                            <td className='px-3 py-2'>
+                                            <td className='px-3 py-2 text-nowrap'>
                                                 <button onClick={(e) => handleUpdate(project.id)} className='mx-1 font-medium text-blue-600 dark:text-blue-500 hover:underline'>Edit</button>
                                                 <button onClick={(e) => handleDelete(project.id)} className='mx-1 font-medium text-red-600 dark:text-red-500 hover:underline'>Delete</button >
                                             </td>

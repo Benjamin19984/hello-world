@@ -23,7 +23,7 @@ export default function Create({ auth }) {
             user={auth.user}
             header={
                 <div className='flex items-center justify-between'>
-                    <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">Project</h2>
+                    <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">Create New Project</h2>
                     <Link href={route('project.create')} className='px-3 py-1 text-white rounded bg-emerald-500 shawdow hovor:bg-emerald-600'>Add new</Link>
                 </div>
             }
