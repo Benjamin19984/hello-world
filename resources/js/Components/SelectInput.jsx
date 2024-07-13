@@ -1,8 +1,12 @@
-import { forwardRef, useRef } from 'react';
+import { forwardRef, useRef, useEffect } from 'react';
 
-export default forwardRef(function SelectInput({ className = '', children, ...props }, ref) {
+export default forwardRef(function SelectInput({ className = '', children, isFocused = false, ...props }, ref) {
     const input = ref ? ref : useRef();
-
+    useEffect(() => {
+        if (isFocused) {
+            input.current.focus();
+        }
+    }, []);
     return (
         <select
             {...props}

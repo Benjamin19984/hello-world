@@ -103,7 +103,7 @@ export default function TasksTable({ tasks, queryParams: initialQueryParams = {}
                         <tr key={task.id} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
                             <td className='px-3 py-2'>{task.id}</td>
                             <td className='px-3 py-2' style={{ witdth: 60 }}>
-                                <img src={task.image} alt='' />
+                                <img src={task.image_path} alt='task.image_path' className='size-12' />                                
                             </td>
                             <td className='px-3 py-2'>{task.name}</td>
                             <td className='px-3 py-2 text-nowrap'>
