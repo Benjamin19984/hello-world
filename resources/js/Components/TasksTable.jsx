@@ -4,9 +4,9 @@ import SelectInput from '@/Components/SelectInput';
 import TextInput from '@/Components/TextInput';
 import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from '@/constant';
 import TableHeading from '@/Components/TableHeading';
-import { Link , router} from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 
-export default function TasksTable({ tasks, queryParams: initialQueryParams = {} }) {
+export default function TasksTable({ tasks, queryParams: initialQueryParams = {}, success = null }) {
 
     const [queryParams, setQueryParams] = useState(initialQueryParams)
 
@@ -32,10 +32,20 @@ export default function TasksTable({ tasks, queryParams: initialQueryParams = {}
         });
     }, []);
 
+    const handleDelete = (id, e) => {
+        e.preventDefault();
+        if (!window.confirm("Are you sure want to delete this task?")) {
+            return;
+        }
+        router.delete(route('task.destroy', id));
+    }
     return (
         <div className="p-6 text-gray-900 dark:text-gray-100">
+            {success && (<div className="px-4 py-2 mb-6 text-white rounded shadow bg-emerald-500">
+                {success}
+            </div>)}
             <table className="w-full text-left text-gray-500 rtl:text-right dark:text-gra-400">
-                <thead className='text-gray-600 uppercase border-b-2 border-gray-500  bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+                <thead className='text-gray-600 uppercase border-b-2 border-gray-500 bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
                     <tr className='text-nowrap'>
                         <TableHeading name="id"
                             sort_field={queryParams.sort_field}
@@ -103,7 +113,7 @@ export default function TasksTable({ tasks, queryParams: initialQueryParams = {}
                         <tr key={task.id} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
                             <td className='px-3 py-2'>{task.id}</td>
                             <td className='px-3 py-2' style={{ witdth: 60 }}>
-                                <img src={task.image_path} alt='task.image_path' className='size-12' />                                
+                                <img src={task.image_path} alt='task.image_path' className='size-12' />
                             </td>
                             <td className='px-3 py-2'>{task.name}</td>
                             <td className='px-3 py-2 text-nowrap'>
@@ -112,15 +122,15 @@ export default function TasksTable({ tasks, queryParams: initialQueryParams = {}
                             <td className='px-3 py-2 text-nowrap'>{task.created_at}</td>
                             <td className='px-3 py-2 text-nowrap'>{task.due_date}</td>
                             <td className='px-3 py-2'>{task.createdBy.name}</td>
-                            <td className='px-3 py-2'>
+                            <td className='px-3 py-2 text-nowrap'>
                                 <Link href={route('task.edit', task.id)}
                                     className='mx-1 font-medium text-blue-600 dark:text-blue-500 hover:underline'>
                                     Edit
                                 </Link>
-                                <Link href={route('task.destroy', task.id)}
+                                <button onClick={(e) => handleDelete(task.id, e)}
                                     className='mx-1 font-medium text-red-600 dark:text-red-500 hover:underline'>
                                     Delete
-                                </Link>
+                                </button>
                             </td>
                         </tr>
 
@@ -128,7 +138,6 @@ export default function TasksTable({ tasks, queryParams: initialQueryParams = {}
                 </tbody>
             </table>
             <Pagination links={tasks.meta.links} queryParams={queryParams} />
-            {/* <span>{JSON.stringify(tasks.meta, undefined, 2)} </span> */}
         </div>
     )
 }

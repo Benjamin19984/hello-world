@@ -38,6 +38,7 @@ class TaskController extends Controller
         return Inertia::render('Task/Index', [
             'tasks' => TaskResource::collection($tasks),
             'queryParams' => $request->query() ?? null,
+            'success' => session('success'),
         ]);
     }
 
@@ -46,7 +47,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = User::query()->orderBy('name','asc')->get();
         $projects = Project::query()->orderBy('name','asc')->get();
         // dd(123);
         return inertia("Task/Create", [
@@ -60,11 +61,9 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-
         $data = $request->validated();
         /** @var $image \Illuminate\Http\UploadedFile */
         $image = $data['image'] ?? null;
-        // dd($image);
 
         $data['created_by'] = Auth::id();
         $data['updated_by'] = Auth::id();
@@ -105,8 +104,12 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+        $users = User::query()->orderBy('name','asc')->get();
+        $projects = Project::query()->orderBy('name','asc')->get();
         return Inertia::render('Task/Edit', [
-            'task' => new TaskResource($task)
+            'task' => new TaskResource($task),
+            "users" => UserResource::collection($users) ,
+            "projects" => ProjectResource::collection($projects),
         ]);
     }
 
@@ -115,11 +118,10 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        // dd($request->name);
 
         $data = $request->validated();
         $image = $data['image'] ?? null;
-
+        // dd($data);
         $data['updated_by'] = Auth::id();
         if ($image) {
             if ($task->image_path) {

@@ -8,14 +8,14 @@ import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Create({ auth, users, projects }) {
     const { data, setData, post, errors, progress, reset } = useForm({
-        'name': '',
-        'description': '',
-        'due_date': '',
-        'status': '',
-        'image': '',
-        'priority': '',
-        'assigned_user_id': '',      
-        'project_id': '',
+        name: '',
+        description: '',
+        due_date: '',
+        status: '',
+        image: '',
+        priority: '',
+        assigned_user_id: '',      
+        project_id: '',
     })
     const onSubmit = (e) => {
         e.preventDefault();

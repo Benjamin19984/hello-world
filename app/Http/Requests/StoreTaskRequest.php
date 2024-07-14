@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
 class StoreTaskRequest extends FormRequest
 {
     /**
@@ -28,8 +27,8 @@ class StoreTaskRequest extends FormRequest
             "image" => ['nullable', 'image'],
             "due_date"=> ["required","date"],
             "status" => ["required","string",Rule::in(["pending","in_progress", "completed"])],
-            "project_id" => ["required", "exists:project,id"],
-            "assigned_user_id" => ["required", "exists:user,id"],
+            "project_id" => ["required", "exists:projects,id"],
+            "assigned_user_id" => ["required", "exists:users,id"],
             "priority" => ["required","string",Rule::in(["low","medium", "high"])],
 
         ];
