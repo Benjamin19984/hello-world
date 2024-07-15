@@ -1,10 +1,9 @@
 import TasksTable from '@/Components/TasksTable';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from '@/constant';
-import { Head } from '@inertiajs/react';
+import { TASK_PRIORITY_CLASS_MAP, TASK_PRIORITY_TEXT_MAP, TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP } from '@/constant';
+import { Head, Link } from '@inertiajs/react';
 
-export default function Show({ auth, task, tasks, queryParams = null }) {
-    console.log(tasks)
+export default function Show({ auth, task }) {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -15,9 +14,9 @@ export default function Show({ auth, task, tasks, queryParams = null }) {
                 <div className="mx-auto max-w-8xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
                         <div>
-                            <img src={task.image}
+                            <img src={task.image_path}
                                 alt={task.image}
-                                className='object-cover w-full '
+                                className='object-cover w-64 '
                             />
                         </div>
                         <div className="p-6 overflow-auto text-gray-900 dark:text-gray-100">
@@ -52,6 +51,14 @@ export default function Show({ auth, task, tasks, queryParams = null }) {
                                             <p className='mt-1'>{task.createdBy.name}</p>
                                         </label>
                                     </div>
+                                    <div className='mt-4'>
+                                        <span className='font-bold, text-lg'>
+                                            Task Priority
+                                            <p className='mt-1'>
+                                                <span className={'px-2 py-1 rounded text-white ' + TASK_PRIORITY_CLASS_MAP[task.priority]}>{TASK_PRIORITY_TEXT_MAP[task.priority]}</span>
+                                            </p>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div>
                                     <div className='mt-4'>
@@ -68,11 +75,22 @@ export default function Show({ auth, task, tasks, queryParams = null }) {
                                     </div>
                                     <div className='mt-4'>
                                         <label className='font-bold, text-lg'>
+                                            Assigned User
+                                            <p className='mt-1'>{task.assignedUser.name}</p>
+                                        </label>
+                                    </div>
+                                    <div className='mt-4'>
+                                        <label className='font-bold, text-lg'>
                                             Updated By
                                             <p className='mt-1'>{task.updatedBy.name}</p>
                                         </label>
                                     </div>
-
+                                    <div className='mt-4'>
+                                        <label className='font-bold, text-lg'>
+                                            Project
+                                            <p className='mt-1'><Link href={route('project.show', task.project.id)} className='hover:underline'>{task.project.name}</Link></p>
+                                        </label>
+                                    </div>
                                 </div>
 
                             </div>
@@ -89,15 +107,6 @@ export default function Show({ auth, task, tasks, queryParams = null }) {
 
                 </div>
             </div>
-            { tasks && (<div className="px-12">
-                <div className="mx-auto max-w-8xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
-                        <div className="p-6 overflow-auto text-gray-900 dark:text-gray-100">
-                            <TasksTable tasks={tasks} queryParams={queryParams} />
-                        </div>
-                    </div>
-                </div>
-            </div>)}            
         </AuthenticatedLayout>
     )
 
