@@ -14,7 +14,7 @@ export default function Index({ auth, tasks, queryParams, success }) {
                 </div>
             }
         >
-            <Head title="Profile" />
+            <Head title="Task" />
             <div className="py-12">
                 <div className="mx-auto max-w-8xl sm:px-6 lg:px-8">
                
